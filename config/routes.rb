@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  resources :likes
-  resources :tweets
+  resources :tweets do 
+    resources :likes
+  end
+
   devise_for :users
   root 'tweets#index'
 end

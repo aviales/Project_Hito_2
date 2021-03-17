@@ -1,6 +1,7 @@
 class LikesController < ApplicationController
   before_action :set_like, only: %i[ show edit update destroy ]
   before_action :authenticate_user!
+  before_action :set_tweet
 
   # GET /likes or /likes.json
   def index
@@ -13,7 +14,7 @@ class LikesController < ApplicationController
 
   # GET /likes/new
   def new
-    @like = Like.new
+    @tweet = Tweet.new
   end
 
   # GET /likes/1/edit
@@ -22,11 +23,13 @@ class LikesController < ApplicationController
 
   # POST /likes or /likes.json
   def create
-    @like = Like.new(like_params)
+
+    @like = Like.new(like_params.merge(tweet: @tweet))
+    @like.user_id = current_user.id
 
     respond_to do |format|
       if @like.save
-        format.html { redirect_to @like, notice: "Like was successfully created." }
+        format.html { redirect_to @root_path, notice: "Like was successfully created." }
         format.json { render :show, status: :created, location: @like }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -61,6 +64,10 @@ class LikesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_like
       @like = Like.find(params[:id])
+    end
+
+    def set_tweet
+      @tweet = Tweet.find(params[:tweet_id]) 
     end
 
     # Only allow a list of trusted parameters through.

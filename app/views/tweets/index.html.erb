@@ -18,10 +18,12 @@
       <h5 class="card-title"><%= tweet.user.username %></h5>
       <p class="card-text"><%= tweet.content %></p>
       <%= link_to(tweet, :class => 'show') do %>
-      <p class="date"><%= time_ago_in_words(tweet.created_at) %> ago</p>
+        <p class="date"><%= time_ago_in_words(tweet.created_at) %> ago</p>
       <% end %>
       <p>Retweets: <%= tweet.retweet %> | Likes: <%= tweet.likes.count %></p>
-      <i class="far fa-heart"></i>
+      <%= link_to(tweet_likes_path(tweet.id), :method => 'post') do %>
+        <i class="far fa-heart"></i>
+      <% end %>
     </div>
   </div>
 <% end %>
