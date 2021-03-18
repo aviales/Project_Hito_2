@@ -105,6 +105,21 @@ body {
     font-weight: bold;
 }
 
+a {
+    color: rgb(0, 123, 164);
+}
+
+.registration input {
+    border-color: lightgrey;
+    outline: none;
+    width: 20rem;
+}
+
+.new_user {
+    color: rgb(0, 123, 164); 
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 .pagination a {
     color: rgb(0, 123, 164);    
 }
