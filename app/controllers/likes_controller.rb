@@ -10,6 +10,7 @@ class LikesController < ApplicationController
 
   # GET /likes/1 or /likes/1.json
   def show
+    
   end
 
   # GET /likes/new
@@ -24,18 +25,18 @@ class LikesController < ApplicationController
   # POST /likes or /likes.json
   def create
 
-    @like = Like.new(like_params.merge(tweet: @tweet))
-    @like.user_id = current_user.id
 
-    respond_to do |format|
-      if @like.save
-        format.html { redirect_to @root_path, notice: "Like was successfully created." }
-        format.json { render :show, status: :created, location: @like }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @like.errors, status: :unprocessable_entity }
+
+    if @tweet.likes.where(user_id: current_user.id).count === 0
+
+      @like = Like.create(tweet_id: @tweet.id, user_id: current_user.id)
+
+    elsif @tweet.likes.where(user_id: current_user.id).count > 0
+      @tweet.likes.where(user_id: current_user.id).each do |like|
+        like.delete
       end
-    end
+    end      
+    redirect_to(root_path)
   end
 
   # PATCH/PUT /likes/1 or /likes/1.json

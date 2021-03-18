@@ -25,61 +25,115 @@ body {
     width: 100%;
 }
 
- .avatar-img {
-     width: 2rem;
-     height: 2rem;
-     border-radius: 50%;
+.avatar-img {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
  }
  
- .thoughts {
-     width: 43%;
-     margin: 0 29.9%;
-     font-family: Arial, Helvetica, sans-serif;
-     color: rgb(0, 123, 164);
- }
-
- .new-tweet {
-     width: 100%;
-     height: 10rem;
- }
-
- .main {
-     width: 40%;
-     margin: 0 29.9%;
- }
-
- .fa-twitter, .fa-pen, .fa-trash {
-     color: rgb(0, 123, 164);
- }
-
- .fa-pen, .fa-trash {
-     font-size: 1.2rem;
- }
-
- .fa-trash {
-     float: right;
-     padding-left: 5px;
- }
-
- .fa-pen {
-    float: right;
-    padding-right: 5px;
- }
-
- .card-title, .date {
+.thoughts {
+    width: 30rem;
+    margin: 0 29.9%;
+    font-family: Arial, Helvetica, sans-serif;
     color: rgb(0, 123, 164);
  }
 
- 
- .card-img-top {
-     margin: 10px 0 0 10px;
-     width: 4.5rem;
-     height: 4.5rem;
-     border-radius: 50%;
-     padding: 10px;
-     display: inline-block;
-    }
+.new-tweet {
+    width: 100%;
+    height: 10rem;
+    outline: none;
+    border-color: lightgrey;
+}
 
-    .card-title {
-        display: inline;
-    }
+.submit {
+    color: white;
+    background-color: rgb(0, 123, 164);;
+}
+
+.main {
+    width: 40%;
+    margin: 0 29.9%;
+}
+
+.fa-twitter, .fa-pen, .fa-trash {
+    color: rgb(0, 123, 164);
+}
+
+.fa-pen, .fa-trash {
+    font-size: 1.2rem;
+}
+
+.fa-trash {
+    float: right;
+    padding-left: 5px;
+}
+
+.fa-pen {
+    float: right;
+    padding-right: 5px;
+}
+
+.card-title, .date {
+    color: rgb(0, 123, 164);
+}
+ 
+.card-img-top {
+    margin: 10px 0 0 10px;
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 50%;
+    padding: 10px;
+    display: inline-block;
+}
+
+.card-title {
+    display: inline;
+}
+
+.login {
+    color: black;
+    font-weight: bold;
+    font-size: 1.05rem;
+}
+
+.button {
+    color: rgb(0, 123, 164);
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+.pagination a {
+    color: rgb(0, 123, 164);    
+}
+
+.next_page {
+    margin-left: 1rem;
+}
+
+.previous_page {
+    display: none;
+}
+
+.likes {
+    width: 30rem;
+    border: 1px solid lightgrey;
+}
+
+.likes img {
+    display: inline-block;
+    width: 3.1rem;
+    height: 3.1rem;
+    border-radius: 50%;
+    margin: 4%;
+}
+
+.likes span{
+    color: rgb(0, 123, 164);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.1rem;
+}
+
+.cora {
+    margin-left: 50%;
+    color: rgb(0, 123, 164);
+}

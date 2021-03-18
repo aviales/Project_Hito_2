@@ -1,5 +1,5 @@
 class TweetsController < ApplicationController
-  before_action :set_tweet, only: %i[ show edit update destroy ]
+  before_action :set_tweet, only: %i[ show edit update destroy retweet ]
   before_action :authenticate_user!, only: %i[ new edit create update destroy ]
 
 
@@ -12,6 +12,7 @@ class TweetsController < ApplicationController
 
   # GET /tweets/1 or /tweets/1.json
   def show
+    @likes = Like.all
   end
 
   # GET /tweets/new
@@ -40,23 +41,15 @@ class TweetsController < ApplicationController
     end
   end
 
+  def retweet
+   
+  end
+
   # PATCH/PUT /tweets/1 or /tweets/1.json
   def update
     respond_to do |format|
       if @tweet.update(tweet_params)
         format.html { redirect_to @tweet, notice: "Tweet was successfully updated." }
-        format.json { render :show, status: :ok, location: @tweet }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @tweet.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  def retweet
-    respond_to do |format|
-      if @tweet.update(tweet_params)
-        format.html { redirect_to @tweet, notice: "Retweet was successfully updated." }
         format.json { render :show, status: :ok, location: @tweet }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -82,6 +75,6 @@ class TweetsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tweet_params
-      params.require(:tweet).permit(:content, :user_id, :origin_tweet)
+      params.require(:tweet).permit(:content, :user_id, :retweet_id)
     end
 end

@@ -1,28 +1,53 @@
 <p id="notice"><%= notice %></p>
 
-<div class="main">
+<!-- Show Tweet main card -->
 
+<div class="main">
   <div class="card my-3" style="width: 30rem;">
-  <%= image_tag(@tweet.user.profile_picture, class: 'card-img-top') %>
+    <%= image_tag(@tweet.user.profile_picture, class: 'card-img-top') %>
     <div class="card-body">
         <h5 class="card-title"><%= @tweet.user.username %></h5>
         <p class="card-text"><%= @tweet.content %></p>
         <p><%= time_ago_in_words(@tweet.created_at) %> ago</p>
-        <p>Retweets: <%= @tweet.retweet %> | Likes: <%= @tweet.likes.count %></p>
+        <p>Likes: <%= @tweet.likes.count %> | Retweets: <%= @tweet.retweets.count %></p>
+
+<!-- Show Tweet Action Icons -->        
+
+        <% if @tweet.likes.where(user_id: current_user.id).count > 0%>
+          <%= link_to(tweet_likes_path(@tweet.id), :method => 'post', :class => 'button') do %>
+            <i class="fas fa-heart mr-2"></i>
+          <% end %>
+        <% else %>
+          <%= link_to(tweet_likes_path(@tweet.id), :method => 'post', :class => 'button') do %>
+            <i class="far fa-heart mr-2"></i>
+          <% end %>
+        <% end %>
+
+      <%= link_to 'RT', retweet_tweet_path(@tweet.id), :method => 'post', :class => 'button' %>
+
         <% if current_user && @tweet.user_id === current_user.id %>
           
           <%= link_to(@tweet, :method => 'delete', :data => { confirm: "Are you sure?"}) do %>  
-          <i class="fas fa-trash"></i>
+            <i class="fas fa-trash"></i>
           <% end %>
 
           <%= link_to(edit_tweet_path(@tweet)) do %>
-              <i class="fas fa-pen"></i>
+            <i class="fas fa-pen"></i>
           <% end %>
 
         <% end %>
-
     </div>
   </div>
+</div>
+
+<!-- Show tweet likes  -->
+
+<div class="likes main">
+  <% @likes.where(tweet_id: @tweet.id).each do |like|%>
+      <%= image_tag(like.user.profile_picture) %>
+      <span><%= like.user.username %></span>
+      <i class="fas cora fa-heart mr-2"></i>
+  <% end %>
 </div>
 
 

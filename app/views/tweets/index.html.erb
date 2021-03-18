@@ -20,20 +20,24 @@
       <%= link_to(tweet, :class => 'show') do %>
         <p class="date"><%= time_ago_in_words(tweet.created_at) %> ago</p>
       <% end %>
-      <p>Retweets: <%= tweet.retweet %> | Likes: <%= tweet.likes.count %></p>
-      <%= link_to(tweet_likes_path(tweet.id), :method => 'post') do %>
-        <i class="far fa-heart"></i>
+      <p class="like-retweet">Likes: <%= tweet.likes.count %> | Retweets: <%= tweet.retweets.count %></p>
+
+      <% if tweet.likes.where(user_id: current_user.id).count > 0%>
+        <%= link_to(tweet_likes_path(tweet.id), :method => 'post', :class => 'button') do %>
+          <i class="fas fa-heart mr-2"></i>
+        <% end %>
+      <% else %>
+        <%= link_to(tweet_likes_path(tweet.id), :method => 'post', :class => 'button') do %>
+          <i class="far fa-heart mr-2"></i>
+        <% end %>
       <% end %>
+      <%= link_to 'RT', retweet_tweet_path(tweet.id), :method => 'post', :class => 'button' %>
     </div>
   </div>
 <% end %>
 </div>
-  <!-- app/views/home/index.html.erb -->
-...
-<div class="row">
-<div class="col-md-8 offset-md-2">
-<%= paginate @tweets %>
-</div>
-</div>
 
-
+<div class="main">
+  <%= will_paginate @paginated_tweets, :previous_label => '', :next_label => 'Show more tweets' %>
+</div>
+  
