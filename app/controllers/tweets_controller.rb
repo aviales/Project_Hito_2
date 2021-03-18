@@ -5,9 +5,19 @@ class TweetsController < ApplicationController
 
   # GET /tweets or /tweets.json
   def index
+
+    @q = params[:q]
+
+    if @q
+      @tweets = Tweet.where("content ~* ?", @q).page(params[:page])
+    else
+      @tweets = Tweet.page(params[:page])
+    end
+
     current_user
-    @tweets = Tweet.page(params[:page])
-    @tweet = Tweet.new
+    # @tweets = Tweet.page(params[:page])
+    # @tweet = Tweet.new
+    
   end
 
   # GET /tweets/1 or /tweets/1.json
