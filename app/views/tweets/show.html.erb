@@ -7,13 +7,16 @@
     <%= image_tag(@tweet.user.profile_picture, class: 'card-img-top') %>
     <div class="card-body">
         <h5 class="card-title"><%= @tweet.user.username %></h5>
+        <% if @tweet.retweet.present? %>
+          <p><i>Retweeted from <%= Tweet.find(@tweet.retweet_id).user.username %></i></p>
+        <% end %>
         <p class="card-text"><%= @tweet.content %></p>
         <p><%= time_ago_in_words(@tweet.created_at) %> ago</p>
         <p>Likes: <%= @tweet.likes.count %> | Retweets: <%= @tweet.retweets.count %></p>
 
 <!-- Show Tweet Action Icons -->        
 
-        <% if @tweet.likes.where(user_id: current_user.id).count > 0%>
+        <% if @tweet.likes.where(user_id: current_user).count > 0 %>
           <%= link_to(tweet_likes_path(@tweet.id), :method => 'post', :class => 'button') do %>
             <i class="fas fa-heart mr-2"></i>
           <% end %>
@@ -23,7 +26,7 @@
           <% end %>
         <% end %>
 
-      <%= link_to 'RT', retweet_tweet_path(@tweet.id), :method => 'post', :class => 'button' %>
+      <%= link_to 'RT', retweet_tweet_path(@tweet), :method => 'post', :class => 'button' %>
 
         <% if current_user && @tweet.user_id === current_user.id %>
           
@@ -42,12 +45,12 @@
 
 <!-- Show tweet likes  -->
 
+<% @likes.where(tweet_id: @tweet.id).each do |like|%>
 <div class="likes main">
-  <% @likes.where(tweet_id: @tweet.id).each do |like|%>
       <%= image_tag(like.user.profile_picture) %>
       <span><%= like.user.username %></span>
       <i class="fas cora fa-heart mr-2"></i>
-  <% end %>
 </div>
+<% end %>
 
 

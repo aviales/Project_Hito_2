@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     resources :likes
     member do 
       post 'retweet'
+      get 'retweet'
     end
   end
 

@@ -91,9 +91,12 @@ body {
 }
 
 .login {
-    color: black;
     font-weight: bold;
     font-size: 1.05rem;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: rgb(0, 123, 164) !important;
 }
 
 .button {
@@ -134,6 +137,8 @@ body {
 }
 
 .cora {
-    margin-left: 50%;
+    float: right;
     color: rgb(0, 123, 164);
+    margin-top: 2rem;
+    padding-right: 2rem;
 }
