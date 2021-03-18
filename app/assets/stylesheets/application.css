@@ -50,9 +50,19 @@ body {
     background-color: rgb(0, 123, 164);;
 }
 
+.search {
+    width: 30rem;
+    margin-left: 71%;
+}
+
+.search input {
+    border-color: lightgrey;
+    outline: none;
+}
+
 .main {
     width: 40%;
-    margin: 0 29.9%;
+    margin: 0 30%;
 }
 
 .fa-twitter, .fa-pen, .fa-trash {
@@ -156,4 +166,26 @@ a {
     color: rgb(0, 123, 164);
     margin-top: 2rem;
     padding-right: 2rem;
+}
+
+.follow {
+    border: 1px solid rgb(0, 123, 164);
+    border-radius: 40px;
+    padding: 1px 5px;
+    margin-left: 0.6rem;
+    outline: none;
+}
+
+.follow:hover {
+    color: white;
+    background-color: rgb(0, 123, 164);
+}
+
+.follow:hover, .button:hover {
+    text-decoration: none;
+}
+
+.button:hover {
+    color: rgb(0, 123, 164);
+    font-size: 1.1rem;
 }

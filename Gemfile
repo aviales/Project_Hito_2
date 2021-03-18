@@ -28,6 +28,9 @@ gem 'kaminari'
 
 gem 'will_paginate', '~> 3.1.0'
 
+# Admin User
+gem 'activeadmin'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 

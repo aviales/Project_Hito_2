@@ -37,7 +37,8 @@ class TweetsController < ApplicationController
   # POST /tweets or /tweets.json
   def create
 
-    @tweet = Tweet.new(tweet_params.merge(user: current_user))
+    @tweet = Tweet.new
+    @tweet.content = params[:content]
     @tweet.user_id = current_user.id
 
     respond_to do |format|
@@ -53,7 +54,7 @@ class TweetsController < ApplicationController
 
   def retweet
     tweet = @tweet.retweets.build(user_id: current_user.id, content: @tweet.content)
-    tweet.id = Tweet.last.id + 1
+
     if tweet.save
       redirect_to root_path
     end
@@ -89,6 +90,6 @@ class TweetsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tweet_params
-      params.require(:tweet).permit(:content, :user_id, :retweet_id, :retweet)
+      params.require(:tweets).permit(:content, :user_id)
     end
 end

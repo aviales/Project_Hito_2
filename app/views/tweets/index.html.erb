@@ -2,11 +2,6 @@
   <p id="notice"><%= notice %></p>
 </div>
 
-<form>
- <input name="q" <%= @q %> >
- <button type="submit">Buscar</button>
-</form>
-
 <% if current_user %>
   <div class="thoughts">
     <h1>Tweet Your Thoughts!</h1>
@@ -24,10 +19,12 @@
       <% if tweet.retweet.present? %>
         <p><i>Retweeted from <%= Tweet.find(tweet.retweet_id).user.username %></i></p>
       <% end %>
+
       <p class="card-text"><%= tweet.content %></p>
       <%= link_to(tweet, :class => 'show') do %>
         <p class="date"><%= time_ago_in_words(tweet.created_at) %> ago</p>
       <% end %>
+
       <p class="like-retweet">Likes: <%= tweet.likes.count %> | Retweets: <%= tweet.retweets.count %></p>
 
       <% if tweet.likes.where(user_id: current_user).count > 0 %>
@@ -39,7 +36,16 @@
           <i class="far fa-heart mr-2"></i>
         <% end %>
       <% end %>
+
       <%= link_to 'RT', retweet_tweet_path(tweet.id), :method => 'post', :class => 'button' %>
+
+      <%if tweet.user.id != current_user.id && current_user.friends.where(friend_id: tweet.user.id).count == 0 %>
+        <%= link_to "Follow", tweet_friends_path(tweet.id), :method => 'post', :class => 'follow' %>
+      <% elsif tweet.user.id != current_user.id && current_user.friends.where(friend_id: tweet.user.id).count > 0 %>
+        <% friend_id = current_user.friends.where(friend_id: tweet.user.id).ids %>
+        <%= link_to "Following", tweet_friend_path(tweet.id, friend_id), :method => 'delete', :class => 'follow' %>
+      <% end %>
+
     </div>
   </div>
 <% end %>

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  resources :friends
   resources :tweets do 
+    resources :friends
     resources :likes
     member do 
       post 'retweet'
