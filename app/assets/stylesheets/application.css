@@ -48,16 +48,19 @@ body {
 .submit {
     color: white;
     background-color: rgb(0, 123, 164);;
+    border-radius: 60px;
 }
 
 .search {
-    width: 30rem;
-    margin-left: 71%;
+    width: 40%;
+    margin-left: 31.5%;
 }
 
 .search input {
     border-color: lightgrey;
     outline: none;
+    width: 74%;
+    border-radius: 60px;
 }
 
 .main {
@@ -70,7 +73,12 @@ body {
 }
 
 .fa-pen, .fa-trash {
-    font-size: 1.2rem;
+    font-size: 1rem;
+}
+
+.fa-pen:hover, .fa-trash:hover {
+    color: rgb(0, 123, 164);
+    font-size: 1.1rem;
 }
 
 .fa-trash {

@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'homes/index'
+
   devise_for :users
   root 'tweets#index'
 end

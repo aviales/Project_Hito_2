@@ -6,7 +6,7 @@ class TweetsController < ApplicationController
   # GET /tweets or /tweets.json
   def index
 
-    @q = params[:q]
+    @q = params[:query]
 
     if @q
       @tweets = Tweet.where("content ~* ?", @q).page(params[:page])

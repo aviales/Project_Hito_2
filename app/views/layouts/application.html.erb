@@ -26,12 +26,15 @@
         <% end %>
 
         <form class="search">
-          <input placeholder="search tweets" name="q" <%= @q %> >
+          <input placeholder="  search tweets" name="query" <%= @q %> >
           <button type="submit" class="submit">Search</button>
         </form>
 
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ml-auto">
+            <li class="nav-item login mr-3">
+              <%= link_to 'Explore', homes_index_path, class: "nav-link" %>
+            </li>
             <li class="nav-item login mr-3">
               <% if current_user %>
                 <%= link_to 'Logout', destroy_user_session_path, class: "nav-link", method: "delete" %>
