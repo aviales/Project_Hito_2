@@ -3,6 +3,18 @@ class TweetsController < ApplicationController
   before_action :authenticate_user! 
 
 
+  def current_user_friends
+
+    user_friends = []
+
+    current_user.friends.each do |friend| 
+      user_friends.push(friend.friend_id)
+    end
+
+    return user_friends
+  end
+
+
   # GET /tweets or /tweets.json
   def index
 
@@ -11,12 +23,10 @@ class TweetsController < ApplicationController
     if @q
       @tweets = Tweet.where("content ~* ?", @q).page(params[:page])
     else
-      @tweets = Tweet.page(params[:page])
-    end
 
-    current_user
-    # @tweets = Tweet.page(params[:page])
-    # @tweet = Tweet.new
+      @tweets = Tweet.tweets_for_me(current_user_friends).page(params[:page])
+      #@tweets = Tweet.page(params[:page])
+    end
     
   end
 

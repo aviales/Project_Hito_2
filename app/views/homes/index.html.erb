@@ -1,108 +1,77 @@
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <%= link_to(root_path) do %>
-          <i class="fab fa-twitter fa-2x"></i>
-        <% end %>
-
-        <form class="search">
-          <input placeholder="  search tweets" name="query" <%= @q %> >
-          <button type="submit" class="submit">Search</button>
-        </form>
-
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item login mr-3">
-              <%= link_to 'Explore', homes_index_path, class: "nav-link" %>
-            </li>
-            <li class="nav-item login mr-3">
-              <% if current_user %>
-                <%= link_to 'Logout', destroy_user_session_path, class: "nav-link", method: "delete" %>
-              <% else %>
-                <%= link_to 'Login', new_user_session_path, class: "nav-link" %>
-              <% end %>
-            </li>
-            <li class="nav-item">
-              <% if current_user %>
-                <%= link_to(edit_user_registration_path) do %>
-                  <%= image_tag(current_user.profile_picture, class: 'avatar-img') %>
-                <% end %>
-              <% end %>
-            </li>
-          </ul>
-        </div>
-      </nav>
+<%= render "partials/full_nav" %>
 
 <div class="container">
 
-<div class="container text-center">
-  <p id="notice"><%= notice %></p>
-</div>
-
-<div class="thoughts">
-    <h1>What Other Users Think!</h1>
-</div>
-
-<div class="main">
-<% @tweets.order(created_at: 'DESC').each do |tweet| %>
-
-  <div class="card my-3" style="width: 30rem;">
-  <%= image_tag(tweet.user.profile_picture, class: 'card-img-top') %>
-    <div class="card-body">
-      <h5 class="card-title"><%= tweet.user.username %></h5>
-      <% if tweet.retweet.present? %>
-        <p><i>Retweeted from <%= Tweet.find(tweet.retweet_id).user.username %></i></p>
-      <% end %>
-
-      <% words = tweet.content.split(" ") %>
-      <% edited_words = [] %>
-      <% words.each do |word| %>
-        <% if word.first == "#" %>
-          <% word = link_to word, controller: "homes", query: word %>
-        <% end %>
-
-        <% edited_words.push(word) %>
-
-      <% end %>
-
-      <p class="card-text"><%= raw edited_words.join(" ") %></p>
-
-      <%= link_to(tweet, :class => 'show') do %>
-        <p class="date"><%= time_ago_in_words(tweet.created_at) %> ago</p>
-      <% end %>
-
-      <p class="like-retweet">Likes: <%= tweet.likes.count %> | Retweets: <%= tweet.retweets.count %></p>
-
-      <% if tweet.likes.where(user_id: current_user).count > 0 %>
-        <%= link_to(tweet_likes_path(tweet.id), :method => 'post', :class => 'button') do %>
-          <i class="fas fa-heart mr-2"></i>
-        <% end %>
-      <% else %>
-        <%= link_to(tweet_likes_path(tweet.id), :method => 'post', :class => 'button') do %>
-          <i class="far fa-heart mr-2"></i>
-        <% end %>
-      <% end %>
-
-      <%= link_to(retweet_tweet_path(tweet.id), :method => 'post', :class => 'button') do %>
-        <i class="fas fa-retweet"></i>
-      <% end %>
-
-      <% if user_signed_in? %>
-        <%if tweet.user.id != current_user.id && current_user.friends.where(friend_id: tweet.user.id).count == 0 %>
-          <%= link_to "Follow", tweet_friends_path(tweet.id), :method => 'post', :class => 'follow' %>
-        <% elsif tweet.user.id != current_user.id && current_user.friends.where(friend_id: tweet.user.id).count > 0 %>
-          <% friend_id = current_user.friends.where(friend_id: tweet.user.id).ids %>
-          <%= link_to "Following", tweet_friend_path(tweet.id, friend_id), :method => 'delete', :class => 'follow' %>
-        <% end %>
-      <% else %>
-        <%= link_to "Follow", tweet_friends_path(tweet.id), :method => 'post', :class => 'follow' %>
-      <% end %>
-
-    </div>
+  <div class="container text-center">
+    <p id="notice"><%= notice %></p>
   </div>
-<% end %>
-</div>
 
-<div class="main">
-  <%= will_paginate @paginated_tweets, :previous_label => '', :next_label => 'Show more tweets' %>
-</div>
+  <div class="thoughts">
+      <h1>What Other Users Think!</h1>
+  </div>
+
+  <div class="main">
+  <% @tweets.order(created_at: 'DESC').each do |tweet| %>
+
+    <div class="card my-3" style="width: 30rem;">
+    <%= image_tag(tweet.user.profile_picture, class: 'card-img-top') %>
+      <div class="card-body">
+        <h5 class="card-title"><%= tweet.user.username %></h5>
+        <% if tweet.retweet.present? %>
+          <p><i>Retweeted from <%= Tweet.find(tweet.retweet_id).user.username %></i></p>
+        <% end %>
+
+        <% words = tweet.content.split(" ") %>
+        <% edited_words = [] %>
+        <% words.each do |word| %>
+          <% if word.first == "#" %>
+            <% word = link_to word, controller: "homes", query: word %>
+          <% end %>
+
+          <% edited_words.push(word) %>
+
+        <% end %>
+
+        <p class="card-text"><%= raw edited_words.join(" ") %></p>
+
+        <%= link_to(tweet, :class => 'show') do %>
+          <p class="date"><%= time_ago_in_words(tweet.created_at) %> ago</p>
+        <% end %>
+
+        <p class="like-retweet">Likes: <%= tweet.likes.count %> | Retweets: <%= tweet.retweets.count %></p>
+
+        <% if tweet.likes.where(user_id: current_user).count > 0 %>
+          <%= link_to(tweet_likes_path(tweet.id), :method => 'post', :class => 'button') do %>
+            <i class="fas fa-heart mr-2"></i>
+          <% end %>
+        <% else %>
+          <%= link_to(tweet_likes_path(tweet.id), :method => 'post', :class => 'button') do %>
+            <i class="far fa-heart mr-2"></i>
+          <% end %>
+        <% end %>
+
+        <%= link_to(retweet_tweet_path(tweet.id), :method => 'post', :class => 'button') do %>
+          <i class="fas fa-retweet"></i>
+        <% end %>
+
+        <% if user_signed_in? %>
+          <%if tweet.user.id != current_user.id && current_user.friends.where(friend_id: tweet.user.id).count == 0 %>
+            <%= link_to "Follow", tweet_friends_path(tweet.id), :method => 'post', :class => 'follow' %>
+          <% elsif tweet.user.id != current_user.id && current_user.friends.where(friend_id: tweet.user.id).count > 0 %>
+            <% friend_id = current_user.friends.where(friend_id: tweet.user.id).ids %>
+            <%= link_to "Following", tweet_friend_path(tweet.id, friend_id), :method => 'delete', :class => 'follow' %>
+          <% end %>
+        <% else %>
+          <%= link_to "Follow", tweet_friends_path(tweet.id), :method => 'post', :class => 'follow' %>
+        <% end %>
+
+      </div>
+    </div>
+  <% end %>
+  </div>
+
+  <div class="main">
+    <%= will_paginate @paginated_tweets, :previous_label => '', :next_label => 'Show more tweets' %>
+  </div>
 
 </div>      

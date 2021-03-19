@@ -8,4 +8,6 @@ class Tweet < ApplicationRecord
 
     validates :content, presence: true
 
+    scope :tweets_for_me, -> (user_friends) { Tweet.where( user_id: user_friends ) }
+
 end
