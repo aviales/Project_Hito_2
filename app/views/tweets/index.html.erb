@@ -58,16 +58,16 @@
         <p class="like-retweet">Likes: <%= tweet.likes.count %> | Retweets: <%= tweet.retweets.count %></p>
 
         <% if tweet.likes.where(user_id: current_user).count > 0 %>
-          <%= link_to(tweet_likes_path(tweet.id), :method => 'post', :class => 'button') do %>
+          <%= link_to(tweet_likes_path(tweet.id), :method => 'post', :class => 'buttons') do %>
             <i class="fas fa-heart mr-2"></i>
           <% end %>
         <% else %>
-          <%= link_to(tweet_likes_path(tweet.id), :method => 'post', :class => 'button') do %>
+          <%= link_to(tweet_likes_path(tweet.id), :method => 'post', :class => 'buttons') do %>
             <i class="far fa-heart mr-2"></i>
           <% end %>
         <% end %>
 
-        <%= link_to(retweet_tweet_path(tweet.id), :method => 'post', :class => 'button') do %>
+        <%= link_to(retweet_tweet_path(tweet.id), :method => 'post', :class => 'buttons') do %>
           <i class="fas fa-retweet"></i>
         <% end %>
 
@@ -92,8 +92,4 @@
 
 <!-- pagination -->
 
-  <div class="main">
-    <%= will_paginate @paginated_tweets, :previous_label => '', :next_label => 'Show more tweets' %>
-  </div>
-  
 </div>        

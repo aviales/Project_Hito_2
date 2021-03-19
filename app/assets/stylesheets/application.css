@@ -11,6 +11,7 @@
  * It is generally better to create a new file per style scope.
  *
  *= require_tree .
+ *= stub "active_admin"
  *= require_self
  */
 
@@ -47,7 +48,7 @@ body {
 
 .submit {
     color: white;
-    background-color: rgb(0, 123, 164);;
+    background-color: rgb(0, 123, 164);
     border-radius: 60px;
 }
 
@@ -61,6 +62,7 @@ body {
     outline: none;
     width: 74%;
     border-radius: 60px;
+    padding: 3px 2px;
 }
 
 .main {

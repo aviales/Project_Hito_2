@@ -23,7 +23,6 @@ class TweetsController < ApplicationController
     if @q
       @tweets = Tweet.where("content ~* ?", @q).page(params[:page])
     else
-
       @tweets = Tweet.tweets_for_me(current_user_friends).page(params[:page])
       #@tweets = Tweet.page(params[:page])
     end
@@ -53,7 +52,7 @@ class TweetsController < ApplicationController
 
     respond_to do |format|
       if @tweet.save
-        format.html { redirect_to root_path, notice: "Tweet was successfully created." }
+        format.html { redirect_to homes_index_path, notice: "Tweet was successfully created." }
         format.json { render :show, status: :created, location: @tweet }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -72,9 +71,13 @@ class TweetsController < ApplicationController
 
   # PATCH/PUT /tweets/1 or /tweets/1.json
   def update
+
+    @tweet.content = :content
+    @tweet.user_id = params[:id]
+
     respond_to do |format|
-      if @tweet.update(tweet_params)
-        format.html { redirect_to @tweet, notice: "Tweet was successfully updated." }
+      if @tweet.update
+        format.html { redirect_to homes_index_path, notice: "Tweet was successfully updated." }
         format.json { render :show, status: :ok, location: @tweet }
       else
         format.html { render :edit, status: :unprocessable_entity }
