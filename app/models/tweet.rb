@@ -7,4 +7,5 @@ class Tweet < ApplicationRecord
     has_many :likes
 
     validates :content, presence: true
+
 end
