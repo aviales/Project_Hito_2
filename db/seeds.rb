@@ -25,4 +25,13 @@ end
         puts "Se ha creado un tweet"                
 end
 
+50.times do
+        user = rand(50)
+        tweet = rand(100)
+        Friend.create([{ user_id: user, friend_id: tweet }])
+      end
+      
+ Tweet.create([{ content: Faker::Lorem.paragraph, user_id: 1, origin_tweet: 1}])
+Tweet.create([{ content: Faker::Lorem.paragraph, user_id: 2, origin_tweet: 3}])
+
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?

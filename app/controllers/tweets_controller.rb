@@ -1,7 +1,7 @@
 class TweetsController < ApplicationController
   before_action :set_tweet, only: %i[ show edit update destroy retweet ]
   before_action :authenticate_user! 
-
+  require 'json'
 
   def current_user_friends
 

@@ -11,6 +11,10 @@ Rails.application.routes.draw do
   end
 
   get 'homes/index'
+  get '/api/news' => 'api#news'
+  get '/api/:fecha1/:fecha2' => 'api#tweet_filter'
+  post '/api', action: :create, controller: 'api'
+
 
   devise_for :users
   root 'tweets#index'
